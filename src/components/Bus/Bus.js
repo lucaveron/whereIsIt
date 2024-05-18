@@ -5,8 +5,7 @@ import React, { useState, useEffect } from "react";
 import SearchInput from "../Search/SearchInput.js";
 import SearchResults from "../Search/SearchResults.js";
 import Alert from "react-bootstrap/Alert";
-import Map from "../Map/Map.js"
-
+import Map from "../Map/Map.js";
 
 const Bus = () => {
   const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -23,7 +22,6 @@ const Bus = () => {
   const handleBusClick = (busLocation) => {
     setSelectedBus(busLocation);
   };
-              
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -50,8 +48,8 @@ const Bus = () => {
 
   const handleSearch = async () => {
     if (searchTerm === "") {
-      setFilteredResults([])
-      setMessage(false)
+      setFilteredResults([]);
+      setMessage(false);
       setWarningMessage("Debe ingresar un número de colectivo");
       setWarning(true);
       return;
@@ -123,10 +121,15 @@ const Bus = () => {
           </div>
         </div>
       </div>
+
       <div className="Map-container">
-        {selectedBus && userLocation && (
-          <Map userLocation={userLocation} busLocation={selectedBus} />
-        )}
+        <div className="Map-wrapper">
+          {selectedBus && userLocation && (
+            <div className="Map-background">
+              <Map userLocation={userLocation} busLocation={selectedBus} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

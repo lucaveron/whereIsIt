@@ -6,6 +6,8 @@ import "../Bus/Bus.css";
 
 const Map = ({ userLocation, busLocation }) => {
   const mapRef = useRef(null);
+  const routingControlRef = useRef(null);
+
 
   useEffect(() => {
     if (mapRef.current) {
@@ -24,27 +26,42 @@ const Map = ({ userLocation, busLocation }) => {
     L.marker([userLocation.latitude,  userLocation.longitude]).addTo(mapRef.current)
     .bindPopup('Your location')
     .openPopup();
-    L.Routing.control({
-      waypoints: [
-        L.latLng(userLocation.latitude, userLocation.longitude),
-        L.latLng(busLocation.latitude, busLocation.longitude)
-      ],
-      router: L.Routing.osrmv1({
-        serviceUrl: "https://router.project-osrm.org/route/v1"
-      }),
-      lineOptions: {
-        styles: [{ color: "blue", opacity: 0.6, weight: 4 }]
-      },
-      createMarker: function() { return null; }, 
-      show: false,
-      addWaypoints: false,
-      routeWhileDragging:false,
-      geocoder: null,
-    }).addTo(mapRef.current);
 
-  }, [userLocation, busLocation]);
+   // Eliminar el control de enrutamiento existente
+   if (routingControlRef.current) {
+    routingControlRef.current.removeFrom(mapRef.current);
+  }
 
-  return <div id="map" style={{ height: "400px", width: "100%" }} />;
+  // Crear el nuevo control de enrutamiento con opciones personalizadas
+  routingControlRef.current = L.Routing.control({
+    waypoints: [
+      L.latLng(userLocation.latitude, userLocation.longitude),
+      L.latLng(busLocation.latitude, busLocation.longitude)
+    ],
+    router: L.Routing.osrmv1({
+      serviceUrl: "https://router.project-osrm.org/route/v1"
+    }),
+    lineOptions: {
+      styles: [{ color: "blue", opacity: 0.6, weight: 4 }]
+    },
+    // createMarker: function() { return null; }, 
+    // show: false,
+    // addWaypoints: false,
+    // routeWhileDragging:false,
+    // geocoder: null,
+    // formatter: new L.Routing.Formatter({
+    //   language: "en",
+    //   units: "metric",
+    //   roundingSensitivity: 10
+    // }),
+    // routeLine:false
+     autoRoute:true,
+    // routeLine:false
+  }).addTo(mapRef.current);
+
+}, [userLocation, busLocation]);
+
+return <div id="map" style={{ height: "500px", width: "100%" }} />;
 };
 
 export default Map;

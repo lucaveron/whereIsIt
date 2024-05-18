@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 
 const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
     return (
+      <>
       <div className="search-input-container">
         <label htmlFor="search" className="search-label">
           Which bus do you want to track?
@@ -15,6 +16,7 @@ const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
           placeholder="Enter the search line"
           className="search-input"
         />
+      </div>
         <Button
           variant="dark"
           disabled={isLoading}
@@ -23,7 +25,7 @@ const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
         >
           {isLoading ? "Cargando..." : "Buscar"}
         </Button>{" "}
-      </div>
+        </>
     );
   };
   
