@@ -1,7 +1,7 @@
 // import logo from '../../logo.svg'
 import "./Bus.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchInput from "../Search/SearchInput.js";
 import SearchResults from "../Search/SearchResults.js";
 import Alert from "react-bootstrap/Alert";
@@ -15,6 +15,26 @@ const Bus = () => {
   const [isLoading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
+  const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            //userLocation is an object with the following properties
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting current location", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser");
+    }
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -40,7 +60,7 @@ const Bus = () => {
       const response = await fetch(url);
       const data = await response.json();
       console.log("Carga completa");
-      setMessage("Resultados De la Búsqueda");
+      setMessage("Search results");
       setLoading(false);
       setWarning(false);
       return data; // Devuelve los datos obtenidos de la API
@@ -84,7 +104,7 @@ const Bus = () => {
         <h1>{message}</h1>
         <div>
           {filteredResults.length > 0 && (
-            <SearchResults results={filteredResults} message={message} />
+            <SearchResults results={filteredResults} message={message} userLocation={userLocation} />
           )}
         </div>
       </div>

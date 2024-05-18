@@ -5,7 +5,7 @@ const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
     return (
       <div className="search-input-container">
         <label htmlFor="search" className="search-label">
-          ¿Qué colectivo desea rastrear?
+          Which bus do you want to track?
         </label>
         <input
           type="text"
