@@ -90,11 +90,11 @@
   color: white;
 }
 
-.Bus-container {
+/* .Bus-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .Bus-content {
   margin-top: 5%;
@@ -118,4 +118,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Container {
+  display: flex;
+  justify-content: center;
+}
+
+.Bus-container,
+.Map-container {
+  flex: 1;
+  margin: 20px;
+}
+
+
+.Map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

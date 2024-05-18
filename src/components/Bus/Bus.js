@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import SearchInput from "../Search/SearchInput.js";
 import SearchResults from "../Search/SearchResults.js";
 import Alert from "react-bootstrap/Alert";
+import Map from "../Map/Map.js"
+
 
 const Bus = () => {
   const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -16,6 +18,12 @@ const Bus = () => {
   const [warning, setWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
   const [userLocation, setUserLocation] = useState(null);
+  const [selectedBus, setSelectedBus] = useState(null);
+
+  const handleBusClick = (busLocation) => {
+    setSelectedBus(busLocation);
+  };
+              
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -89,24 +97,36 @@ const Bus = () => {
   };
 
   return (
-    <div className="Bus-container">
-      <div className="Bus-content">
-        <div className="Search-container">
-          <h1 className="App-link">   Bus Tracker   </h1>
-          <SearchInput
-            value={searchTerm}
-            onChange={handleSearchChange}
-            onSearch={filterResultsAsync}
-            isLoading={isLoading}
-          />
+    <div className="Container">
+      <div className="Bus-container">
+        <div className="Bus-content">
+          <div className="Search-container">
+            <h1 className="App-link">Bus Tracker</h1>
+            <SearchInput
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onSearch={filterResultsAsync}
+              isLoading={isLoading}
+            />
+          </div>
+          {warning && <Alert variant={"warning"}>{warningMessage}</Alert>}
+          <h1>{message}</h1>
+          <div>
+            {filteredResults.length > 0 && (
+              <SearchResults
+                results={filteredResults}
+                message={message}
+                userLocation={userLocation}
+                onBusClick={handleBusClick}
+              />
+            )}
+          </div>
         </div>
-        {warning && <Alert variant={"warning"}>{warningMessage}</Alert>}
-        <h1>{message}</h1>
-        <div>
-          {filteredResults.length > 0 && (
-            <SearchResults results={filteredResults} message={message} userLocation={userLocation} />
-          )}
-        </div>
+      </div>
+      <div className="Map-container">
+        {selectedBus && userLocation && (
+          <Map userLocation={userLocation} busLocation={selectedBus} />
+        )}
       </div>
     </div>
   );

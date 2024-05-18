@@ -12,7 +12,7 @@ const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
           id="search"
           value={value}
           onChange={onChange}
-          placeholder="Ingrese la línea buscada"
+          placeholder="Enter the search line"
           className="search-input"
         />
         <Button
