@@ -52,7 +52,7 @@ const Results = ({ results, message, userLocation, onBusClick }) => {
               <React.Fragment key={result.id}>
                 <ListGroup.Item
                   as="li"
-                  className="d-flex justify-content-between align-items-start"
+                  className="d-flex justify-content-between align-items-start list-group-item"
                   onClick={() => onBusClick({ latitude: result.latitude, longitude: result.longitude })}
                 >
                   <div className="ms-2">

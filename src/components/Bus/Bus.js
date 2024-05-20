@@ -32,10 +32,12 @@ const Bus = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
+          console.log(userLocation);
         },
         (error) => {
           console.error("Error getting current location", error);
-        }
+        },
+        {enableHighAccuracy: true} 
       );
     } else {
       console.error("Geolocation is not supported by this browser");
@@ -124,7 +126,7 @@ const Bus = () => {
 
       <div className="Map-container">
         <div className="Map-wrapper">
-          {selectedBus && userLocation && (
+          {userLocation && (
             <div className="Map-background">
               <Map userLocation={userLocation} busLocation={selectedBus} />
             </div>
