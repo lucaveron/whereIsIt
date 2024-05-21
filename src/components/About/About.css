@@ -1,0 +1,44 @@
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .about-container h1 {
+    color: black;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-container p {
+    color: black;
+    font-size: 2.5ex;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .container-text {
+    background-color: #edf7ff5e;
+  }
+  
+  .footer {
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1c3c52; 
+    padding: 1rem;
+    height: 7vh; 
+  }
+
+  .footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tech-logo {
+    width: 35px; 
+    margin: 0 0.5rem; 
+  }

@@ -32,7 +32,6 @@ const Bus = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-          console.log(userLocation);
         },
         (error) => {
           console.error("Error getting current location", error);
@@ -81,7 +80,7 @@ const Bus = () => {
   };
 
   const filterResultsAsync = async () => {
-    const data = await handleSearch(); //espero la asincronía
+    const data = await handleSearch(); //wait the async function
     if (data) {
       const filteredResults = data.filter((result) => {
         const routeNumber = result.route_short_name.match(/\d+/);

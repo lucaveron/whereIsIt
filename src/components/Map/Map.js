@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet/dist/leaflet.css";
@@ -7,69 +7,75 @@ import "../Bus/Bus.css";
 const Map = ({ userLocation, busLocation }) => {
   const mapRef = useRef(null);
   const routingControlRef = useRef(null);
+  const [routeInfo, setRouteInfo] = useState({ distance: null, time: null });
 
   useEffect(() => {
     if (!userLocation) {
       return;
     }
 
-    const markerIconUrl = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png";
-    const markerShadowUrl = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png";
-    
-    // Crear un icono personalizado para el marcador del usuario
+    const markerIconUrl =
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png";
+    const markerShadowUrl =
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png";
+
     const customIcon = L.icon({
       iconUrl: markerIconUrl,
       shadowUrl: markerShadowUrl,
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
-      shadowSize: [41, 41]
+      shadowSize: [41, 41],
     });
 
-    // Crear un icono personalizado para la ruta
     const routeIcon = L.icon({
-      iconUrl: markerIconUrl,  // Puedes cambiar esta URL a la que prefieras
+      iconUrl: markerIconUrl, 
       shadowUrl: markerShadowUrl,
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
-      shadowSize: [41, 41]
+      shadowSize: [41, 41],
     });
 
     if (mapRef.current) {
-      mapRef.current.setView([userLocation.latitude, userLocation.longitude], 13);
+      mapRef.current.setView(
+        [userLocation.latitude, userLocation.longitude],
+        13
+      );
     } else {
-      // Crear el mapa
-      mapRef.current = L.map("map").setView([userLocation.latitude, userLocation.longitude], 13);
+      mapRef.current = L.map("map").setView(
+        [userLocation.latitude, userLocation.longitude],
+        13
+      );
 
-      // Añadir capa de mapa de OpenStreetMap
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(mapRef.current);
 
-      // Añadir marcador de la ubicación del usuario
-      L.marker([userLocation.latitude, userLocation.longitude], { icon: customIcon }).addTo(mapRef.current)
-        .bindPopup('You')
+      L.marker([userLocation.latitude, userLocation.longitude], {
+        icon: customIcon,
+      })
+        .addTo(mapRef.current)
+        .bindPopup("You")
         .openPopup();
     }
 
     if (busLocation) {
-      // Eliminar el control de enrutamiento existente si existe
       if (routingControlRef.current) {
         mapRef.current.removeControl(routingControlRef.current);
       }
 
-      // Crear el nuevo control de enrutamiento con opciones personalizadas
       routingControlRef.current = L.Routing.control({
         waypoints: [
           L.latLng(userLocation.latitude, userLocation.longitude),
-          L.latLng(busLocation.latitude, busLocation.longitude)
+          L.latLng(busLocation.latitude, busLocation.longitude),
         ],
         router: L.Routing.osrmv1({
-          serviceUrl: "https://router.project-osrm.org/route/v1"
+          serviceUrl: "https://router.project-osrm.org/route/v1",
         }),
         lineOptions: {
-          styles: [{ color: "blue", opacity: 0.6, weight: 4 }]
+          styles: [{ color: "blue", opacity: 0.6, weight: 4 }],
         },
         autoRoute: true,
         createMarker: function (i, waypoint, n) {
@@ -87,16 +93,30 @@ const Map = ({ userLocation, busLocation }) => {
         fitSelectedRoutes: true,
         showAlternatives: false,
         createGeocoder: () => null,
-        itineraryFormatter: () => null, // Desactiva la creación del itinerario,
+        itineraryFormatter: () => null, 
         itinerary: {
-          show: false, // Esconde el itinerario
-        } // Desactiva la creación de geocoders,
-
+          show: false, 
+        },
       }).addTo(mapRef.current);
+      routingControlRef.current.on("routesfound", (e) => {
+        const route = e.routes[0];
+        const summary = route.summary;
+        const distance = (summary.totalDistance / 1000).toFixed(1) + " km";
+        const time = Math.round(summary.totalTime / 60) + " min";
+        setRouteInfo({ distance, time });
+      });
     }
   }, [userLocation, busLocation]);
 
-  return <div id="map" style={{ height: "500px", width: "100%" }} />;
+  return( <div>
+    <div id="map" style={{ height: "500px", width: "100%" }}></div>
+    {routeInfo.distance && routeInfo.time && (
+      <div className="route-info" style={{display:"none"}}>
+        <h2>Distancia: {routeInfo.distance}</h2>
+        <h3>Tiempo: {routeInfo.time}</h3>
+      </div>
+    )}
+  </div>);
 };
 
 export default Map;

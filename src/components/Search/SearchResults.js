@@ -7,7 +7,7 @@ import Map from "../Map/Map.js"
 
 
 const Results = ({ results, message, userLocation, onBusClick }) => {
-  const AVERAGE_BUS_SPEED = 8.33;
+  const AVERAGE_BUS_SPEED = 6.33; // 6.33m/s×3.6=22.788km/h
 
 
   const calculateDistance = (busLocation) => {
@@ -33,6 +33,17 @@ const Results = ({ results, message, userLocation, onBusClick }) => {
     return null
   }
 
+  const sortedResults = results
+  .map((result) => ({
+    ...result,
+    distance: calculateDistance({
+      latitude: result.latitude,
+      longitude: result.longitude,
+    }),
+  }))
+  .sort((a, b) => (a.distance || 0) - (b.distance || 0)); // If result is negative, a > b, otherwise b > a
+
+
 
 
   return (
@@ -40,14 +51,9 @@ const Results = ({ results, message, userLocation, onBusClick }) => {
 
       <div className="Results-container">
         <ListGroup as="ol" numbered>
-          {results.map((result) => {
-            const distance = calculateDistance({
-              latitude: result.latitude,
-              longitude: result.longitude,
-            });
-            const formattedDistance = distance !== null ? distance.toLocaleString('es-MX') : "Calculando...";
-            const timeInMinutes = distance !== null ? calculateTime(distance) : "Calculando...";
-
+          {sortedResults.map((result) => {
+          const formattedDistance = result.distance !== null ? result.distance.toLocaleString('es-MX') : "Calculando...";
+          const timeInMinutes = result.distance !== null ? calculateTime(result.distance) : "Calculando...";
             return (
               <React.Fragment key={result.id}>
                 <ListGroup.Item
