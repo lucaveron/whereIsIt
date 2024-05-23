@@ -66,11 +66,10 @@ const Bus = () => {
         );
       const response = await fetch(url);
       const data = await response.json();
-      console.log("Carga completa");
       setMessage("Search results");
       setLoading(false);
       setWarning(false);
-      return data; // Devuelve los datos obtenidos de la API
+      return data; // data = Api result
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);

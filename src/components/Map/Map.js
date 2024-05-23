@@ -79,15 +79,15 @@ const Map = ({ userLocation, busLocation }) => {
         },
         autoRoute: true,
         createMarker: function (i, waypoint, n) {
-          // Si es el primer marcador, usar el icono personalizado del usuario
+         
           if (i === 0) {
             return L.marker(waypoint.latLng, { icon: customIcon });
           }
-          // Para los demás marcadores, usar el icono personalizado de la ruta
+          
           return L.marker(waypoint.latLng, { icon: routeIcon });
         },
         show: false,
-        addWaypoints: false, // Desactiva los waypoints interactivos
+        addWaypoints: false, // disallow interactive waypoints
         routeWhileDragging: false,
         draggableWaypoints: false,
         fitSelectedRoutes: true,

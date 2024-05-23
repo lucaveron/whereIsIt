@@ -23,7 +23,7 @@ const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
           onClick={!isLoading ? onSearch : null}
           className="search-button"
         >
-          {isLoading ? "Cargando..." : "Buscar"}
+          {isLoading ? "Searching..." : "Search"}
         </Button>{" "}
         </>
     );
