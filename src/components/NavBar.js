@@ -34,6 +34,7 @@ export const NavBar = () => {
   }, []);
 
   useEffect(() => {
+    localStorage.clear();
     const storedActiveLink = localStorage.getItem("activeLink");
     if (storedActiveLink) {
       setActiveLink(storedActiveLink);
@@ -46,7 +47,7 @@ export const NavBar = () => {
   };
 
   return (
-    <Router>
+    <Router basename="/whereIsIt">
       {isMobile && (
         <div
           className="alert alert-danger text-center"
