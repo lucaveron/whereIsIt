@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 
 const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
@@ -13,7 +13,7 @@ const SearchInput = ({ value, onChange, onSearch, isLoading }) => {
           id="search"
           value={value}
           onChange={onChange}
-          placeholder="Enter the search line"
+          placeholder="Enter the search line, only the numbers"
           className="search-input"
         />
       </div>

@@ -10,7 +10,6 @@ import {
   Routes,
   Link,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 import Bus from "./Bus/Bus";
 import About from "./About/About";
@@ -109,10 +108,10 @@ export const NavBar = () => {
                 </Nav>
                 <span className="navbar-text">
                   <div className="social-icon">
-                    <a href="https://www.linkedin.com/in/luca-ver%C3%B3n-762602301">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/luca-ver%C3%B3n-762602301">
                       <img src={navIcon1} alt="" />
                     </a>
-                    <a href="https://github.com/lucaveron">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/lucaveron/whereIsIt">
                       <img src={naviconGH} alt="" />
                     </a>
                   </div>

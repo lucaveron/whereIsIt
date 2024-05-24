@@ -3,11 +3,12 @@ import Badge from "react-bootstrap/Badge";
 import React, {useState} from "react";
 import "../Bus/Bus.css";
 import { getDistance } from "geolib";
-import Map from "../Map/Map.js"
 
 
 const Results = ({ results, message, userLocation, onBusClick }) => {
   const AVERAGE_BUS_SPEED = 6.33; // 6.33m/s×3.6=22.788km/h
+  const [selectedBusId, setSelectedBusId] = useState(null); // Estado para rastrear el ítem seleccionado
+
 
 
   const calculateDistance = (busLocation) => {
@@ -31,6 +32,11 @@ const Results = ({ results, message, userLocation, onBusClick }) => {
       return timeInMinutes.toFixed(0);//two decimals
     }
     return null
+  }
+
+  const handleBusClick = (busId, busLocation) => {
+    setSelectedBusId(busId);
+    onBusClick(busLocation)
   }
 
   const sortedResults = results
@@ -58,8 +64,8 @@ const Results = ({ results, message, userLocation, onBusClick }) => {
               <React.Fragment key={result.id}>
                 <ListGroup.Item
                   as="li"
-                  className="d-flex justify-content-between align-items-start list-group-item"
-                  onClick={() => onBusClick({ latitude: result.latitude, longitude: result.longitude })}
+                  className={`d-flex justify-content-between align-items-start list-group-item ${selectedBusId === result.id ? 'clicked' : ''}`}
+                  onClick={() => handleBusClick(result.id, { latitude: result.latitude, longitude: result.longitude })}
                 >
                   <div className="ms-2">
                     <div className="fw-bold">Terminal: {result.trip_headsign}</div>

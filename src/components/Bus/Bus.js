@@ -58,7 +58,7 @@ const Bus = () => {
 
     try {
       setLoading(true);
-      setMessage("Cargando...");
+      setMessage("Searching...");
       const url =
         "https://corsproxy.io/?" +
         encodeURIComponent(
@@ -88,6 +88,8 @@ const Bus = () => {
       if (filteredResults.length === 0) {
         setWarning(true);
         setWarningMessage("No se hallaron colectivos con la linea buscada");
+        setMessage(false)
+        setFilteredResults([]);
       } else {
         setFilteredResults(filteredResults);
       }
@@ -110,14 +112,18 @@ const Bus = () => {
           {warning && <Alert variant={"warning"}>{warningMessage}</Alert>}
           <h1>{message}</h1>
           <div>
-            {filteredResults.length > 0 && (
+            {filteredResults.length > 0 ? (
               <SearchResults
                 results={filteredResults}
                 message={message}
                 userLocation={userLocation}
                 onBusClick={handleBusClick}
               />
-            )}
+            ) : 
+            <div className="info-message">
+            <span role="img" aria-label="click hand">👉</span> When the search results appear, click on one to see how far it is from you!
+          </div>
+            }
           </div>
         </div>
       </div>
