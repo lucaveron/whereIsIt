@@ -75,7 +75,7 @@ export const NavBar = () => {
             }}
             className={`custom-navbar ${scrolled ? "scrolled" : ""}`}>
             <Container>
-              <Navbar.Brand href="/">
+              <Navbar.Brand as={Link} to="/bus">
                 <img src={logoTransport} alt="Logo" />
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav">
