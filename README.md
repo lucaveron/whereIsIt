@@ -1,4 +1,4 @@
-# Bus Tracker Application
+# Bus Tracker Application ( Work in Progress )
 
 Welcome to my Bus Tracker Application! This project is designed to know the real-time location of buses in Buenos Aires and their distance to you. With a simple interface and an interactive map, you can search for any bus line from Buenos Aires and see its route and current position. I created this as a personal project to practice and make use of the React framework.
 
