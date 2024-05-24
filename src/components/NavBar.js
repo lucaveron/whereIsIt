@@ -75,7 +75,7 @@ export const NavBar = () => {
             }}
             className={`custom-navbar ${scrolled ? "scrolled" : ""}`}>
             <Container>
-              <Navbar.Brand as={Link} to="/bus">
+              <Navbar.Brand as={Link} to="/bus" onClick={() => onUpdateActiveLink("Bus")} >
                 <img src={logoTransport} alt="Logo" />
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav">
