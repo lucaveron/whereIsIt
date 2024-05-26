@@ -69,8 +69,8 @@ const Results = ({ results, message, userLocation, onBusClick }) => {
                 >
                   <div className="ms-2">
                     <div className="fw-bold">Terminal: {result.trip_headsign}</div>
-                    Distancia del colectivo hacia ti (metros): {formattedDistance} <br />
-                    Distancia del colectivo hacia ti (minutos): {timeInMinutes}
+                    Distance between the bus and you (metros): {formattedDistance} <br />
+                    Distance between the bus and you (minutos): {timeInMinutes}
                   </div>
                   <Badge bg="primary" pill>
                     {result.route_short_name}

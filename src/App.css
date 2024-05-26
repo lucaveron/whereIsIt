@@ -1,3 +1,4 @@
+/************ Custom Font ************/
 @font-face {
 	font-family: Centra;
 	src: url('./assets/font/CentraNo2-Bold.ttf');
@@ -14,6 +15,7 @@
 	font-weight: 400;
 }
 
+/************ Default Css ************/
 * {
   margin: 0;
   padding: 0;
@@ -545,6 +547,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .contact form button:hover::before {
   width: 100%;
 }
+
+/************ Footer Css ************/
 
 .newsletter-bx {
   background: #FFFFFF;

@@ -1,9 +1,21 @@
-.about-container {
-    max-width: 800px;
-    margin: 0 auto;
+/* .about-container {
+    max-width: 84vh;
+    margin: auto;
     text-align: center;
     padding: 2rem;
-  }
+  } */
+
+  /* .about-container {
+    max-width: 84vh;
+    margin: auto;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
   
   .about-container h1 {
     color: black;
@@ -19,6 +31,7 @@
   }
 
   .container-text {
+    padding: 2px;
     background-color: #edf7ff5e;
   }
   
@@ -42,3 +55,101 @@
     width: 35px; 
     margin: 0 0.5rem; 
   }
+
+  @media (min-width: 600px) {
+    .about-container h1 {
+        font-size: 2rem;
+    }
+
+    .about-container p {
+        font-size: 1.25rem;
+    }
+
+    .tech-logo {
+        width: 35px;
+    }
+} */  
+
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh; 
+}
+
+.about-container {
+  flex: 1; 
+  max-width: 40%;
+  margin: auto;
+  text-align: center;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: max-content;
+}
+
+.about-container h1 {
+  color: black;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about-container p {
+  color: black;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.container-text {
+  padding: 4px;
+  background-color: #edf7ff5e;
+  flex-basis: auto;
+  overflow-y: auto; 
+}
+
+.footer {
+  background-color: #1c3c52;
+  padding: 1rem;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; 
+}
+
+.tech-logo {
+  width: 30px;
+  margin: 0 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .about-container h1 {
+      font-size: 2.5rem;
+  }
+
+  .about-container p {
+      font-size: 1.25rem;
+  }
+
+  .tech-logo {
+      width: 35px;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-container h1 {
+      font-size: 2.5rem;
+  }
+
+  .about-container p {
+      font-size: 1.2rem;
+  }
+
+  .tech-logo {
+      width: 40px;
+  }
+}

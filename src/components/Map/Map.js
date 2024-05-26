@@ -109,7 +109,7 @@ const Map = ({ userLocation, busLocation }) => {
   }, [userLocation, busLocation]);
 
   return( <div>
-    <div id="map" style={{ height: "500px", width: "100%" }}></div>
+    <div id="map" style={{ height: "60vh", width: "100%" }}></div>
     {routeInfo.distance && routeInfo.time && (
       <div className="route-info" style={{display:"none"}}>
         <h2>Distancia: {routeInfo.distance}</h2>

@@ -36,7 +36,7 @@ const Bus = () => {
         (error) => {
           console.error("Error getting current location", error);
         },
-        {enableHighAccuracy: true} 
+        { enableHighAccuracy: true }
       );
     } else {
       console.error("Geolocation is not supported by this browser");
@@ -88,7 +88,7 @@ const Bus = () => {
       if (filteredResults.length === 0) {
         setWarning(true);
         setWarningMessage("No se hallaron colectivos con la linea buscada");
-        setMessage(false)
+        setMessage(false);
         setFilteredResults([]);
       } else {
         setFilteredResults(filteredResults);
@@ -98,7 +98,7 @@ const Bus = () => {
 
   return (
     <div className="Container">
-      <div className="Bus-container">
+      <div className="Bus-container ">
         <div className="Bus-content">
           <div className="Search-container">
             <h1 className="App-link">Bus Tracker</h1>
@@ -119,17 +119,21 @@ const Bus = () => {
                 userLocation={userLocation}
                 onBusClick={handleBusClick}
               />
-            ) : 
-            <div className="info-message">
-            <span role="img" aria-label="click hand">👉</span> When the search results appear, click on one to see how far it is from you!
-          </div>
-            }
+            ) : (
+              <div className="info-message">
+                <span role="img" aria-label="click hand">
+                  👉
+                </span>{" "}
+                When the search results appear, click on one to see how far it
+                is from you!
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="Map-container">
-        <div className="Map-wrapper">
+      <div className="Map-container ">
+        <div className="Map-wrapper mt-auto">
           {userLocation && (
             <div className="Map-background">
               <Map userLocation={userLocation} busLocation={selectedBus} />

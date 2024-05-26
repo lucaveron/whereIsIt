@@ -34,7 +34,7 @@ export const NavBar = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.clear();
+    // localStorage.clear();
     const storedActiveLink = localStorage.getItem("activeLink");
     if (storedActiveLink) {
       setActiveLink(storedActiveLink);
@@ -64,7 +64,6 @@ export const NavBar = () => {
 
       {!isMobile && (
         <>
-          <div style={{ height: "162px" }} />
           <Navbar
             expand="md"
             style={{
@@ -73,6 +72,7 @@ export const NavBar = () => {
               left: 0,
               width: "100%",
               zIndex: 1000,
+              height: "20vh"
             }}
             className={`custom-navbar ${scrolled ? "scrolled" : ""}`}>
             <Container>
@@ -120,7 +120,7 @@ export const NavBar = () => {
               </Navbar.Collapse>
             </Container>
           </Navbar>
-          <div style={{ minHeight: "calc(100vh - 162px)" }}>
+          <div style={{marginTop : "20vh"}}>
             <Routes>
               <Route path="/bus" element={<Bus />} />
               <Route path="/about" element={<About />} />
