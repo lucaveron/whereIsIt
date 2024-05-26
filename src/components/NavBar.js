@@ -4,18 +4,12 @@ import logoTransport from "../assets/img/logoTransportWhite.png";
 import navIcon1 from "../assets/img/nav-icon1.svg";
 import naviconGH from "../assets/img/naviconGH.png";
 import { isMobile } from "react-device-detect";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Link, Navigate, useLocation } from "react-router-dom";
 import Bus from "./Bus/Bus";
 import About from "./About/About";
 
 export const NavBar = () => {
-  // const location = useLocation();
+  const location = useLocation();
   const [activeLink, setActiveLink] = useState("Bus");
   const [scrolled, setScrolled] = useState(false);
 
@@ -33,21 +27,16 @@ export const NavBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    // localStorage.clear();
-    const storedActiveLink = localStorage.getItem("activeLink");
-    if (storedActiveLink) {
-      setActiveLink(storedActiveLink);
-    }
-  }, []);
 
-  const onUpdateActiveLink = (value) => {
-    setActiveLink(value);
-    localStorage.setItem("activeLink", value);
-  };
+  useEffect(() => {
+    const path = location.pathname.split("/")[1];
+    //set active link = current route
+    const currentLink = path === "" ? "Bus" : path.charAt(0).toUpperCase() + path.slice(1);
+    setActiveLink(currentLink);
+  }, [location.pathname]);
 
   return (
-    <Router basename="/whereIsIt">
+    <>
       {isMobile && (
         <div
           className="alert alert-danger text-center"
@@ -72,11 +61,14 @@ export const NavBar = () => {
               left: 0,
               width: "100%",
               zIndex: 1000,
-              height: "20vh"
+              height: "20vh",
             }}
             className={`custom-navbar ${scrolled ? "scrolled" : ""}`}>
             <Container>
-              <Navbar.Brand as={Link} to="/bus" onClick={() => onUpdateActiveLink("Bus")} >
+              <Navbar.Brand
+                as={Link}
+                to="/bus"
+                >
                 <img src={logoTransport} alt="Logo" />
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav">
@@ -92,7 +84,7 @@ export const NavBar = () => {
                         ? "active navbar-link"
                         : "navbar-link"
                     }
-                    onClick={() => onUpdateActiveLink("Bus")}>
+                    >
                     Buses
                   </Nav.Link>
                   <Nav.Link
@@ -103,16 +95,22 @@ export const NavBar = () => {
                         ? "active navbar-link"
                         : "navbar-link"
                     }
-                    onClick={() => onUpdateActiveLink("About")}>
+                    >
                     About
                   </Nav.Link>
                 </Nav>
                 <span className="navbar-text">
                   <div className="social-icon">
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/luca-ver%C3%B3n-762602301">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www.linkedin.com/in/luca-ver%C3%B3n-762602301">
                       <img src={navIcon1} alt="" />
                     </a>
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/lucaveron/whereIsIt">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://github.com/lucaveron/whereIsIt">
                       <img src={naviconGH} alt="" />
                     </a>
                   </div>
@@ -120,7 +118,7 @@ export const NavBar = () => {
               </Navbar.Collapse>
             </Container>
           </Navbar>
-          <div style={{marginTop : "20vh"}}>
+          <div style={{ marginTop: "20vh" }}>
             <Routes>
               <Route path="/bus" element={<Bus />} />
               <Route path="/about" element={<About />} />
@@ -129,6 +127,6 @@ export const NavBar = () => {
           </div>
         </>
       )}
-    </Router>
+    </>
   );
 };
