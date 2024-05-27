@@ -6,8 +6,8 @@ import boostrapLogo from "../../assets/img/boostrapLogo.png";
 
 const About = () => {
   const technologies = [
-    { name: "React", logo: reactLogo },
-    { name: "Boostrap", logo: boostrapLogo },
+    { name: "React", logo: reactLogo, link : "https://es.react.dev/" },
+    { name: "Boostrap", logo: boostrapLogo, link : "https://react-bootstrap.netlify.app/" },
   ];
 
   return (
@@ -45,6 +45,7 @@ const About = () => {
         <div className="footer-content">
           &copy; {new Date().getFullYear()} Luca Verón. Created with:
           {technologies.map((tech, index) => (
+            <a key={index} href={tech.link} target="_blank" rel="noreferrer">
             <img
               key={index}
               src={tech.logo}
@@ -52,6 +53,7 @@ const About = () => {
               title={tech.name}
               className="tech-logo"
             />
+            </a>
           ))}
         </div>
       </footer>

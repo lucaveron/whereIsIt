@@ -37,7 +37,7 @@ export const NavBar = () => {
 
   return (
     <>
-      {isMobile && (
+      {/* {isMobile && (
         <div
           className="alert alert-danger text-center"
           style={{
@@ -49,10 +49,10 @@ export const NavBar = () => {
           }}>
           I am working to make this app compatible with mobile devices.
         </div>
-      )}
+      )} */}
 
-      {!isMobile && (
-        <>
+      {/* {!isMobile && (
+        <> */}
           <Navbar
             expand="md"
             style={{
@@ -125,8 +125,8 @@ export const NavBar = () => {
               <Route path="*" element={<Navigate to="/bus" />} />
             </Routes>
           </div>
-        </>
-      )}
+        {/* </>
+      )} */}
     </>
   );
 };
